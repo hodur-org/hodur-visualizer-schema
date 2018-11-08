@@ -1,0 +1,61 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+.container {
+    height: 100%;
+}
+
+#infoBoxHolder {
+    z-index: 300;
+    position: absolute;
+    left: 5px;
+}
+#infoBox {
+    border: 1px solid #999;
+    padding: 8px;
+    background-color: whitesmoke;
+    opacity:0.9;
+    position: relative;
+    width: 250px;
+    font-family: arial, helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 11px;
+}
+/* this is known as the "clearfix" hack to allow
+   floated objects to add to the height of a div */
+#infoBox:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+div.infoRow {
+    width: 100%;
+    display: inline-block;
+    border-bottom-style: dotted;
+    border-bottom-width: thin;
+}
+
+div.infoTitle {
+    width: 100px;
+    font-weight: normal;
+    color:  #787878;
+    float: left;
+}
+div.infoValue {
+    width: 150px;
+    text-align: right;
+    float: right;
+    font-weight: normal;
+}
+
+.diagramDiv {
+    background-color: white;
+    border: solid 1px black;
+    width: 100%;
+    height: 100%;
+}
