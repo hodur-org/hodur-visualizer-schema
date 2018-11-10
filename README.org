@@ -1,0 +1,151 @@
+#+TITLE:   Hodur Visualizer Schema
+#+AUTHOR:  Tiago Luchini
+#+EMAIL:   info@tiagoluchini.eu
+#+OPTIONS: toc:t
+
+[[https://img.shields.io/clojars/v/hodur/engine.svg]]
+[[https://img.shields.io/clojars/v/hodur/visualizer-schema.svg]]
+[[https://img.shields.io/badge/License-MIT-blue.svg]]
+https://img.shields.io/badge/project%20status-experimental-brightgreen.svg]]
+
+[[./docs/logo-tag-line.png]]
+
+Hodur is a descriptive domain modeling approach and related collection
+of libraries for Clojure.
+
+By using Hodur you can define your domain model as data, parse and
+validate it, and then either consume your model via an API making your
+apps respond to the defined model or use one of the many plugins to
+help you achieve mechanical, repetitive results faster and in a purely
+functional manner.
+
+#+BEGIN_QUOTE
+This Hodur plugin provides the ability to visualize your Hodur model
+on a dynamically, hot-reloaded web page.
+#+END_QUOTE
+
+* Motivation
+
+  For a deeper insight into the motivations behind Hodur, check the
+  [[https://github.com/luchiniatwork/hodur-engine/blob/master/docs/MOTIVATION.org][motivation doc]].
+
+* Getting Started
+
+  Hodur has a highly modular architecture. [[https://github.com/luchiniatwork/hodur-engine][Hodur Engine]] is always
+  required as it provides the meta-database functions and APIs
+  consumed by plugins.
+
+  Therefore, refer the [[https://github.com/luchiniatwork/hodur-engine#getting-started][Hodur Engine's Getting Started]] first and then
+  return here for Lacinia-specific setup.
+
+  After having set up ~hodur-engine~ as described above, we also need
+  to add ~hodur/visualizer-schema~, a plugin that creates and shows
+  Hodur models on a web browser to the ~deps.edn~ file:
+
+#+BEGIN_SRC clojure
+  {:deps {hodur/engine            {:mvn/version "0.1.2"}
+          hodur/visualizer-schema {:mvn/version "0.1.0"}}}
+#+END_SRC
+
+  While you are at your ~deps.edn~ file also make sure you have both
+  ~"src"~ and ~"resources"~ to your ~:paths~:
+
+#+BEGIN_SRC clojure
+  {:paths ["src" "resources"]}
+#+END_SRC
+
+  Visualizer utilizes a JavaScript library called [[https://gojs.net/][GoJS]] for the
+  rendering and interactive bits. This library is unfortunately under
+  a proprietary license so it can't be embedded in an Open Source
+  project directly. You have to downlaod a personal evaluation copy
+  and to your project:
+
+#+BEGIN_SRC bash
+$ mkdir -p resources/public/scripts
+$ curl https://gojs.net/latest/release/go.js -o resources/public/scripts/go.js
+#+END_SRC
+
+  It is also recommended that you list ~resources/public/scripts/go.js~
+  out of your SCM (i.e. Github) to avoid legal issues.
+
+#+BEGIN_QUOTE
+If you have suggestions of more Open Source-friendly libraries with
+equivalent features please DM me at [[https://twitter.com/tiagoluchini][@tiagoluchini]]
+#+END_QUOTE
+
+  Create a ~cljs~ main file that will bootstrap your visualizer
+  app. For instance, if you want to call it ~hello.core~, add the file
+  ~core.cljs~ to ~src/hello~:
+
+#+BEGIN_SRC clojure
+  (ns hello.core
+    (:require [hodur-engine.core :as engine]
+              [hodur-visualizer-schema.core :as visualizer]))
+
+  (def meta-db (engine/init-schema
+                '[Person
+                  [^String first-name
+                   ^String last-name
+                   ^Gender gender]
+
+                  ^:enum
+                  Gender
+                  [MALE FEMALE IRRELEVANT]]))
+
+  (-> meta-db
+      visualizer/schema
+      visualizer/apply-diagram!)
+#+END_SRC
+
+  We are creating a simple Hodur model with an Entity called ~Person~
+  and an enum called ~Gender~ and putting it in a meta database on
+  ~meta-db~.
+
+  Before explaining the last function calls on this document, let's
+  fire up a [[https://figwheel.org/][figwheel]] environment with the following helper main (where
+  ~hello.core~ is the name of the main ~cljs~ namespace you created
+  above:
+
+#+BEGIN_SRC bash
+$ clojure -m hodur-visualizer-schema.main hello.core
+#+END_SRC
+
+  Figwheel will bootstrap a browser-connected repl and launch a
+  browser pointing to ~localhost:9500~ after while. You should see
+  something like this:
+
+  [[./docs/diagram.png]]
+
+  Feel free to interact with the diagram. You can drag entities
+  around, collapse them and there's a handy tooltip when you hover
+  over entities and fields.
+
+  Hot-reload is also enabled, if you change your model on ~hello.core~
+  you should see the changes reflected on your browser immediately.
+
+  As for the last two functions of the ~hello.core~ we are using the
+  meta-database on ~meta-db~ to get a visualizer-parsed version of the
+  schema (through the function ~visualizer/schema~) and, at last, we
+  call visualizer's side-effect function ~visualizer/apply-diagram!~
+  that updates the diagram on your browser.
+
+* Model Definition
+
+  All Hodur plugins follow the [[https://github.com/luchiniatwork/hodur-engine#model-definition][Model Definition]] as described on Hodur
+  [[https://github.com/luchiniatwork/hodur-engine#model-definition][Engine's documentation]].
+
+* Bugs
+
+  If you find a bug, submit a [[https://github.com/luchiniatwork/hodur-visualizer-schema/issues][GitHub issue]].
+
+* Help!
+
+  This project is looking for team members who can help this project
+  succeed! If you are interested in becoming a team member please open
+  an issue.
+
+* License
+
+  Copyright © 2018 Tiago Luchini
+
+  Distributed under the MIT License (see [[./LICENSE][LICENSE]]).
