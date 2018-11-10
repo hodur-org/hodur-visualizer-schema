@@ -6,7 +6,7 @@
 [[https://img.shields.io/clojars/v/hodur/engine.svg]]
 [[https://img.shields.io/clojars/v/hodur/visualizer-schema.svg]]
 [[https://img.shields.io/badge/License-MIT-blue.svg]]
-https://img.shields.io/badge/project%20status-experimental-brightgreen.svg]]
+[[https://img.shields.io/badge/project%20status-experimental-brightgreen.svg]]
 
 [[./docs/logo-tag-line.png]]
 
@@ -57,7 +57,7 @@ on a dynamically, hot-reloaded web page.
   Visualizer utilizes a JavaScript library called [[https://gojs.net/][GoJS]] for the
   rendering and interactive bits. This library is unfortunately under
   a proprietary license so it can't be embedded in an Open Source
-  project directly. You have to downlaod a personal evaluation copy
+  project directly. You have to download a personal evaluation copy
   and to your project:
 
 #+BEGIN_SRC bash
@@ -66,7 +66,7 @@ $ curl https://gojs.net/latest/release/go.js -o resources/public/scripts/go.js
 #+END_SRC
 
   It is also recommended that you list ~resources/public/scripts/go.js~
-  out of your SCM (i.e. Github) to avoid legal issues.
+  out of your SCM (i.e. GitHub) to avoid legal issues.
 
 #+BEGIN_QUOTE
 If you have suggestions of more Open Source-friendly libraries with
