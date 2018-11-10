@@ -204,13 +204,13 @@
 ;; Public functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn ^:export apply-diagram! [{:keys [nodes links]}]
-  (if (not js/initialized)
-    (js/init))
-  (set! (.-model js/myDiagram)
-        (js/go.GraphLinksModel. nodes links)))
+#?(:cljs (defn ^:export apply-diagram! [{:keys [nodes links]}]
+           (if (not js/initialized)
+             (js/init))
+           (set! (.-model js/myDiagram)
+                 (js/go.GraphLinksModel. nodes links))))
 
-(defn schema [conn]
-  (let [types (d/q (meta-query) @conn)]
-    {:nodes (clj->js (parse-nodes types))
-     :links (clj->js (parse-edges types))}))
+#?(:cljs (defn schema [conn]
+           (let [types (d/q (meta-query) @conn)]
+             {:nodes (clj->js (parse-nodes types))
+              :links (clj->js (parse-edges types))})))

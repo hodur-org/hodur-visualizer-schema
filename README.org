@@ -44,7 +44,7 @@ on a dynamically, hot-reloaded web page.
 
 #+BEGIN_SRC clojure
   {:deps {hodur/engine            {:mvn/version "0.1.2"}
-          hodur/visualizer-schema {:mvn/version "0.1.0"}}}
+          hodur/visualizer-schema {:mvn/version "0.1.1"}}}
 #+END_SRC
 
   While you are at your ~deps.edn~ file also make sure you have both
