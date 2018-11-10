@@ -1,5 +1,6 @@
 (ns hodur-visualizer-schema.core
   (:require [datascript.core :as d]
+            [cljs.repl :as repl]
             [clojure.string :as string]))
 
 (defn ^:private cardinality-edge-label
@@ -202,6 +203,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Public functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn ^:export apply-diagram! [{:keys [nodes links]}]
+  (if (not js/initialized)
+    (js/init))
+  (set! (.-model js/myDiagram)
+        (js/go.GraphLinksModel. nodes links)))
 
 (defn schema [conn]
   (let [types (d/q (meta-query) @conn)]

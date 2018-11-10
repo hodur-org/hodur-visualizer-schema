@@ -1,3 +1,5 @@
+initialized = false;
+
 // This function is called to update the tooltip information
 // depending on the bound data of the Node that is closest to the pointer.
 function updateInfoBox(mousePt, data) {
@@ -215,61 +217,6 @@ function init() {
         },
         new go.Binding("text", "toText"))
      );
-
-  // create the model for the E-R diagram
-  var nodeDataArray = [
-    { key: "Products",
-      items: [ { name: "ProductID", iskey: true, figure: "Decision", color: yellowgrad },
-               { name: "ProductName", iskey: false, figure: "Cube1", color: bluegrad },
-               { name: "SupplierID", iskey: false, figure: "Decision", color: "purple" },
-               { name: "CategoryID", iskey: false, figure: "Decision", color: "purple" } ] },
-    { key: "Suppliers",
-      items: [ { name: "SupplierID", iskey: true, figure: "Decision", color: yellowgrad },
-               { name: "CompanyName", iskey: false, figure: "Cube1", color: bluegrad },
-               { name: "ContactName", iskey: false, figure: "Cube1", color: bluegrad },
-               { name: "Address", iskey: false, figure: "Cube1", color: bluegrad } ] },
-    { key: "Categories",
-      items: [ { name: "CategoryID", iskey: true, figure: "Decision", color: yellowgrad },
-               { name: "CategoryName", iskey: false, figure: "Cube1", color: bluegrad },
-               { name: "Description", iskey: false, figure: "Cube1", color: bluegrad },
-               { name: "Picture", iskey: false, figure: "TriangleUp", color: redgrad } ] },
-    { key: "Order Details",
-      items: [ { name: "OrderID", iskey: true, figure: "Decision", color: yellowgrad },
-               { name: "ProductID", iskey: true, figure: "Decision", color: yellowgrad },
-               { name: "UnitPrice", iskey: false, figure: "MagneticData", color: greengrad },
-               { name: "Quantity", iskey: false, figure: "MagneticData", color: greengrad },
-               { name: "Discount", iskey: false, figure: "MagneticData", color: greengrad } ] },
-    { key: "Order Details2",
-      tags: [{ key: ":datomic/asd", value: "false" },
-             { key: ":datomic/bla", value: "true" },
-             { key: ":datomic/qwe", value: "true" }],
-      items: [ { name: "OrderID", iskey: true, figure: "Decision", color: yellowgrad,
-                 tags: [{ key: ":datomic/tag", value: "true" },
-                        { key: ":datomic/bla", value: "true" },
-                        { key: ":datomic/qwe", value: "true" }] },
-               { name: "ProductID", iskey: true, figure: "Decision", color: yellowgrad,
-                 tags: [{ key: ":datomic/tag", value: "true" },
-                        { key: ":datomic/bla", value: "true" },
-                        { key: ":datomic/qwe", value: "true" }]},
-               { name: "UnitPrice", iskey: false, figure: "MagneticData", color: greengrad,
-                 tags: [{ key: ":datomic/tag", value: "true" },
-                        { key: ":datomic/bla", value: "true" },
-                        { key: ":datomic/qwe", value: "true" }]},
-               { name: "Quantity", iskey: false, figure: "MagneticData", color: greengrad,
-                 tags: [{ key: ":datomic/tag", value: "true" },
-                        { key: ":datomic/bla", value: "very long description that might span across several lines" },
-                        { key: ":datomic/qwe", value: "true" }]},
-               { name: "Discount", iskey: false, figure: "MagneticData", color: greengrad ,
-                 tags: [{ key: ":datomic/tag", value: "true" },
-                        { key: ":datomic/bla", value: "true" },
-                        { key: ":datomic/qwe", value: "true" }]} ] }
-  ];
-  var linkDataArray = [
-    { from: "Products", to: "Suppliers", text: "0..N", toText: "1" },
-    { from: "Products", to: "Categories", text: "0..N", toText: "1" },
-    { from: "Order Details", to: "Products", text: "0..N", toText: "1" }
-  ];
-  //myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-
-  hodur.hodur_visualizer.set_model();
+  
+  initialized = true;
 }
