@@ -5,7 +5,7 @@
   org.clojure/clojurescript {:mvn/version "1.10.439"}
   hodur/engine              {:mvn/version "0.1.2"}
   datascript                {:mvn/version "0.16.7"}
-  com.bhauman/figwheel-main {:mvn/version "0.1.9"}}
+  com.bhauman/figwheel-main {:mvn/version "0.2.3"}}
 
  :aliases
  {:dev
